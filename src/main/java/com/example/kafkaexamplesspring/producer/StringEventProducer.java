@@ -18,7 +18,7 @@ public class StringEventProducer {
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, server); // can be multiple broker addresses
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, serializer);
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, serializer);
-        properties.setProperty(ProducerConfig.ACKS_CONFIG, "1"); // can ACK from single broker to consider event sent can also be "all"
+        properties.setProperty(ProducerConfig.ACKS_CONFIG, "all"); // can ACK from the leader broker to consider event sent can also be "all"
         properties.setProperty(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true"); // Idempotence producers guarantee no duplication for messages
         // The batch is sent after linger time or if Batch size is full
         properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, lingerS); // how much time to wait before sending a message batch
