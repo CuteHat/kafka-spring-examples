@@ -1,10 +1,12 @@
 package com.example.kafkaexamplesspring;
 
 import com.example.kafkaexamplesspring.admin.KafkaAdmin;
+import com.example.kafkaexamplesspring.consumer.StringEventConsumer;
 import com.example.kafkaexamplesspring.model.User;
 import com.example.kafkaexamplesspring.model.UserType;
 import com.example.kafkaexamplesspring.producer.StringEventProducer;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ public class EntryPoint implements CommandLineRunner {
     public void run(String... args) throws Exception {
         setUpCluster();
         sendEvents();
+        pollEvents();
     }
 
     public void sendEvents() throws ExecutionException, InterruptedException, TimeoutException {
@@ -34,5 +37,11 @@ public class EntryPoint implements CommandLineRunner {
         KafkaAdmin kafkaAdmin = new KafkaAdmin(brokerAddress);
         kafkaAdmin.removeTopicIfExists(userTopic);
         kafkaAdmin.createTopic(userTopic, 1, (short) 1);
+    }
+
+    public void pollEvents() {
+        StringEventConsumer eventConsumer = new StringEventConsumer(brokerAddress, "1");
+        ConsumerRecords<String, String> consumerRecords = eventConsumer.subscribeAndPoll(userTopic);
+        consumerRecords.forEach(record -> log.info("polled the record {}:{}", record.key(), record.value()));
     }
 }

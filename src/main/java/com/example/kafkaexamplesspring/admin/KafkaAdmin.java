@@ -19,7 +19,7 @@ public class KafkaAdmin {
         properties = new Properties();
         properties.setProperty(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, server);
         properties.setProperty(AdminClientConfig.RETRIES_CONFIG, "3");
-         properties.setProperty(AdminClientConfig.RETRY_BACKOFF_MS_CONFIG, "100");
+        properties.setProperty(AdminClientConfig.RETRY_BACKOFF_MS_CONFIG, "100");
         properties.setProperty(AdminClientConfig.RETRY_BACKOFF_MAX_MS_CONFIG, "1000");
 
         admin = Admin.create(properties);
