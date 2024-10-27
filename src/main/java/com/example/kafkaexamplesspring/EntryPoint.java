@@ -2,20 +2,13 @@ package com.example.kafkaexamplesspring;
 
 import com.example.kafkaexamplesspring.admin.KafkaAdmin;
 import com.example.kafkaexamplesspring.consumer.StringEventConsumer;
-import com.example.kafkaexamplesspring.datafaker.PurchaseEventFaker;
-import com.example.kafkaexamplesspring.model.PurchaseEvent;
-import com.example.kafkaexamplesspring.model.User;
-import com.example.kafkaexamplesspring.model.UserType;
 import com.example.kafkaexamplesspring.producer.PurchaseEventFakerProducerThread;
 import com.example.kafkaexamplesspring.producer.PurchaseEventProducer;
-import com.example.kafkaexamplesspring.producer.StringEventProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 

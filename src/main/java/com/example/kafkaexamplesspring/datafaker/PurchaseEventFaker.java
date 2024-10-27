@@ -2,7 +2,6 @@ package com.example.kafkaexamplesspring.datafaker;
 
 import com.example.kafkaexamplesspring.model.PurchaseEvent;
 import com.example.kafkaexamplesspring.model.PurchaseStatus;
-import com.example.kafkaexamplesspring.model.User;
 import com.github.javafaker.Faker;
 
 import java.util.ArrayList;

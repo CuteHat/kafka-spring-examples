@@ -2,7 +2,6 @@ package com.example.kafkaexamplesspring.partitioner;
 
 import com.example.kafkaexamplesspring.model.User;
 import org.apache.kafka.clients.producer.Partitioner;
-import org.apache.kafka.clients.producer.RoundRobinPartitioner;
 import org.apache.kafka.common.Cluster;
 
 import java.util.Map;
