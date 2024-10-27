@@ -6,6 +6,8 @@ import com.example.kafkaexamplesspring.datafaker.PurchaseEventFaker;
 import com.example.kafkaexamplesspring.model.PurchaseEvent;
 import com.example.kafkaexamplesspring.model.User;
 import com.example.kafkaexamplesspring.model.UserType;
+import com.example.kafkaexamplesspring.producer.PurchaseEventFakerProducerThread;
+import com.example.kafkaexamplesspring.producer.PurchaseEventProducer;
 import com.example.kafkaexamplesspring.producer.StringEventProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -26,26 +28,22 @@ public class EntryPoint implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        setUpCluster();
-//        sendEvents();
+        setUpCluster();
+        sendEvents();
 //        pollEvents();
 
-        PurchaseEventFaker purchaseEventFaker = new PurchaseEventFaker();
-        List<PurchaseEvent> purchaseEvents =
-                purchaseEventFaker.generatePurchaseEventsWithInitiatedStatus(200);
-        purchaseEvents.forEach(event -> log.info("{}", event));
     }
 
     public void sendEvents() throws ExecutionException, InterruptedException, TimeoutException {
-        StringEventProducer stringEventProducer = new StringEventProducer(brokerAddress, lingerSec);
-        User user = new User(1L, "Mr kafka", UserType.REGULAR, new BigDecimal(10));
-        stringEventProducer.sendEventSync(userTopic, "test", user.toString());
+        Thread producerThread = new Thread(new PurchaseEventFakerProducerThread(brokerAddress, 5000L, 3));
+        producerThread.start();
+//        producerThread.join();
     }
 
     public void setUpCluster() throws ExecutionException, InterruptedException {
         KafkaAdmin kafkaAdmin = new KafkaAdmin(brokerAddress);
-        kafkaAdmin.removeTopicIfExists(userTopic);
-        kafkaAdmin.createTopic(userTopic, 1, (short) 1);
+        kafkaAdmin.removeTopicIfExists(PurchaseEventProducer.TOPIC_NAME);
+        kafkaAdmin.createTopic(PurchaseEventProducer.TOPIC_NAME, 1, (short) 1);
     }
 
     public void pollEvents() {
