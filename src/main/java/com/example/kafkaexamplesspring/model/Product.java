@@ -6,13 +6,11 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 
-// Dummy class to represent user
 @AllArgsConstructor
 @ToString
 @Getter
-public class User {
+public class Product {
     private Long id;
     private String name;
-    private UserType Type;
-    private BigDecimal balance;
+    private BigDecimal price;
 }
