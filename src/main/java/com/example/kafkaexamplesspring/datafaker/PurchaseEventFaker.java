@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PurchaseEventFaker {
-    private UserFaker userFaker = new UserFaker();
-    private ProductFaker productFaker = new ProductFaker();
-    private static final Faker faker = new Faker();
+    private final UserFaker userFaker = new UserFaker();
+    private final ProductFaker productFaker = new ProductFaker();
 
     public List<PurchaseEvent> generatePurchaseEventsWithInitiatedStatus(int count) {
         List<PurchaseEvent> purchaseEvents = new ArrayList<>(count);
